@@ -140,8 +140,12 @@ class MPVActivity : Activity(), EventObserver, TouchGesturesObserver {
 
     private fun copyAssets() {
         val assetManager = applicationContext.assets
-        val files = arrayOf("subfont.ttf", "cacert.pem")
+        val files = arrayOf(
+            "subfont.ttf", "cacert.pem", "youtube-dl",
+            "ytdl/python3.6", "ytdl/python36.zip", "ytdl/youtube-dl"
+        )
         val configDir = applicationContext.filesDir.path
+        File("$configDir/ytdl").mkdir()
         for (filename in files) {
             var ins: InputStream? = null
             var out: OutputStream? = null
@@ -163,6 +167,13 @@ class MPVActivity : Activity(), EventObserver, TouchGesturesObserver {
                 ins?.close()
                 out?.close()
             }
+        }
+
+        val execFiles = arrayOf("youtube-dl", "ytdl/python3.6")
+        for (filename in execFiles) {
+            try {
+                File("$configDir/$filename").setExecutable(true)
+            } catch (e: IOException) {}
         }
     }
 
