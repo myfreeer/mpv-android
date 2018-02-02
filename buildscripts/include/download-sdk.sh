@@ -60,12 +60,12 @@ rm "android-ndk-${v_ndk}-${os_ndk}-x86_64.zip"
 cd "android-ndk-${v_ndk}"
 toolchain_api=21
 ./build/tools/make_standalone_toolchain.py \
-	--arch arm --api $toolchain_api \
-	--install-dir `pwd`/../ndk-toolchain
+	--arch arm64 --api $toolchain_api \
+	--install-dir `pwd`/../ndk-toolchain-arm64
 if [ $TRAVIS -eq 0 ]; then
 	./build/tools/make_standalone_toolchain.py \
-		--arch arm64 --api $toolchain_api \
-		--install-dir `pwd`/../ndk-toolchain-arm64
+		--arch arm --api $toolchain_api \
+		--install-dir `pwd`/../ndk-toolchain
 	./build/tools/make_standalone_toolchain.py \
 		--arch x86_64 --api $toolchain_api \
 		--install-dir `pwd`/../ndk-toolchain-x64

@@ -23,7 +23,7 @@ cd ..
 
 # ffmpeg
 git clone https://github.com/FFmpeg/FFmpeg ffmpeg
-[ $TRAVIS -eq 1 ] && ( cd ffmpeg; git checkout $v_travis_ffmpeg )
+#[ $TRAVIS -eq 1 ] && ( cd ffmpeg; git checkout $v_travis_ffmpeg )
 
 # freetype2
 git clone git://git.sv.nongnu.org/freetype/freetype2.git -b VER-$v_freetype
