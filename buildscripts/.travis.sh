@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+VERSION_NAME_GIT="git-$(git rev-list --count HEAD)-$(git rev-parse --short HEAD)-$(date '+%F')"
+sed -i "/versionName \"/ c\\        versionName \"${VERSION_NAME_GIT}\"\\" app/build.gradle
+
 cd "$( dirname "${BASH_SOURCE[0]}" )"
 
 . ./include/depinfo.sh
