@@ -60,7 +60,7 @@ internal class MPVView(context: Context, attrs: AttributeSet) : SurfaceView(cont
         Log.v(TAG, "Device reports optimal frames per buffer $framesPerBuffer sample rate $sampleRate")
 
         MPVLib.setOptionString("opensles-frames-per-buffer", framesPerBuffer)
-        MPVLib.setOptionString("opensles-sample-rate", sampleRate)
+        MPVLib.setOptionString("audio-samplerate", sampleRate)
 
         // set non-complex options
 
@@ -124,6 +124,7 @@ internal class MPVView(context: Context, attrs: AttributeSet) : SurfaceView(cont
         MPVLib.setOptionString("tls-ca-file", "${this.context.filesDir.path}/cacert.pem")
         // Limit demuxer cache to 32 MiB, the default is too high for mobile devices
         MPVLib.setOptionString("demuxer-max-bytes", "${32 * 1024 * 1024}")
+        MPVLib.setOptionString("demuxer-max-back-bytes", "${32 * 1024 * 1024}")
     }
 
     fun playFile(filePath: String) {
@@ -149,7 +150,6 @@ internal class MPVView(context: Context, attrs: AttributeSet) : SurfaceView(cont
         // Disable surface callbacks to avoid using unintialized mpv state
         holder.removeCallback(this)
 
-        MPVLib.clearObservers()
         MPVLib.destroy()
     }
 
@@ -168,6 +168,9 @@ internal class MPVView(context: Context, attrs: AttributeSet) : SurfaceView(cont
 
     fun addObserver(o: EventObserver) {
         MPVLib.addObserver(o)
+    }
+    fun removeObserver(o: EventObserver) {
+        MPVLib.removeObserver(o)
     }
 
     data class Track(val mpvId: Int, val name: String)

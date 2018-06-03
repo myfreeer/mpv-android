@@ -9,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 9
-        versionName "2017-09-20-alpha"
+        versionCode 14
+        versionName "2018-04-29-alpha"
         vectorDrawables.useSupportLibrary = true
     }
     sourceSets {
@@ -22,7 +22,7 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'com.android.support:support-v4:27.0.2'
-    implementation 'com.android.support:appcompat-v7:27.0.2'
-    implementation 'com.android.support:recyclerview-v7:27.0.2'
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
 }

@@ -13,6 +13,7 @@
 
     <application
         android:allowBackup="true"
+        android:resizeableActivity="true"
         android:icon="@mipmap/mpv_launcher_icon"
         android:label="@string/mpv_activity">
         <activity
@@ -133,6 +134,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
+            android:configChanges="orientation|screenSize"
             android:theme="@style/FilePickerTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -144,6 +146,13 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"/>
+        <service android:name=".BackgroundPlaybackService" android:exported="false" />
+        <receiver android:name=".NotificationButtonReceiver" android:exported="false">
+            <intent-filter>
+                <action android:name="is.xyz.mpv.ACTION_PREV" />
+                <action android:name="is.xyz.mpv.ACTION_NEXT" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

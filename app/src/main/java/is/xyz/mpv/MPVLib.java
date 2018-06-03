@@ -5,6 +5,7 @@ package is.xyz.mpv;
 import java.util.ArrayList;
 import java.util.List;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.opengl.GLSurfaceView;
 import android.view.Surface;
 
@@ -27,6 +28,8 @@ public class MPVLib {
 
      public static native int setOptionString(String name, String value);
 
+     public static native Bitmap grabThumbnail(int dimension);
+
      public static native Integer getPropertyInt(String property);
      public static native void setPropertyInt(String property, Integer value);
      public static native Boolean getPropertyBoolean(String property);
@@ -41,9 +44,8 @@ public class MPVLib {
      public static void addObserver(EventObserver o) {
           observers.add(o);
      }
-
-     public static void clearObservers() {
-          observers.clear();
+     public static void removeObserver(EventObserver o) {
+          observers.remove(o);
      }
 
      public static void eventProperty(String property, long value) {
@@ -58,7 +60,7 @@ public class MPVLib {
 
      public static void eventProperty(String property, String value) {
           for (EventObserver o : observers)
-               o.eventProperty(property);
+               o.eventProperty(property, value);
      }
 
      public static void eventProperty(String property) {
@@ -69,6 +71,20 @@ public class MPVLib {
      public static void event(int eventId) {
           for (EventObserver o : observers)
                o.event(eventId);
+     }
+
+     private static final List<LogObserver> log_observers = new ArrayList<>();
+
+     public static void addLogObserver(LogObserver o) {
+          log_observers.add(o);
+     }
+     public static void removeLogObserver(LogObserver o) {
+          log_observers.remove(o);
+     }
+
+     public static void logMessage(String prefix, int level, String text) {
+          for (LogObserver o : log_observers)
+               o.logMessage(prefix, level, text);
      }
 
      public static class mpvFormat {
@@ -110,5 +126,16 @@ public class MPVLib {
           public static final int MPV_EVENT_PROPERTY_CHANGE=22;
           public static final int MPV_EVENT_CHAPTER_CHANGE=23;
           public static final int MPV_EVENT_QUEUE_OVERFLOW=24;
+     }
+
+     public static class mpvLogLevel {
+          public static final int MPV_LOG_LEVEL_NONE=0;
+          public static final int MPV_LOG_LEVEL_FATAL=10;
+          public static final int MPV_LOG_LEVEL_ERROR=20;
+          public static final int MPV_LOG_LEVEL_WARN=30;
+          public static final int MPV_LOG_LEVEL_INFO=40;
+          public static final int MPV_LOG_LEVEL_V=50;
+          public static final int MPV_LOG_LEVEL_DEBUG=60;
+          public static final int MPV_LOG_LEVEL_TRACE=70;
      }
 }

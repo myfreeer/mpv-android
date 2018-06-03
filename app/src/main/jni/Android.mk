@@ -6,6 +6,9 @@ endif
 ifeq ($(TARGET_ARCH_ABI),x86_64)
 PREFIX = $(PREFIX_X64)
 endif
+ifeq ($(TARGET_ARCH_ABI),x86)
+PREFIX = $(PREFIX_X86)
+endif
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := libswresample
@@ -60,7 +63,8 @@ LOCAL_SRC_FILES := \
 	log.cpp \
 	jni_utils.cpp \
 	property.cpp \
-	event.cpp
+	event.cpp \
+	thumbnail.cpp
 LOCAL_LDLIBS    := -llog -lGLESv3 -lEGL -latomic
 LOCAL_SHARED_LIBRARIES := swresample avutil avcodec avformat swscale avfilter avdevice mpv
 
