@@ -26,8 +26,9 @@ nativeprefix () {
 prefix32=$(nativeprefix "armv7l")
 prefix=$(nativeprefix "arm64")
 prefix_x64=$(nativeprefix "x86_64")
+prefix_x86=$(nativeprefix "x86")
 
-PREFIX=$prefix PREFIX32=$prefix32 PREFIX_X64=$prefix_x64 \
+PREFIX=$BUILD/prefix/armv7l PREFIX64=$prefix64 PREFIX_X64=$prefix_x64 PREFIX_X86=$prefix_x86 \
 NDK_TOOLCHAIN_VERSION=4.9 \
 ndk-build -C app/src/main
 ./gradlew assembleDebug
